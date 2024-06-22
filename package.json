@@ -10,7 +10,8 @@
     "lint:fix": "next lint --fix",
     "prettier": "prettier --write .",
     "markuplint": "markuplint \"./**/*.tsx\"",
-    "secretlint": "secretlint --maskSecrets --secretlintignore .gitignore '**/*'"
+    "secretlint": "secretlint --maskSecrets --secretlintignore .gitignore '**/*'",
+    "prepare": "husky"
   },
   "dependencies": {
     "next": "14.2.4",
