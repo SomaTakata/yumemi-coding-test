@@ -89,13 +89,11 @@ export default function Home() {
       <div className="w-full">
         <div className="flex justify-start border-l-4 pl-4 text-sm">都道府県を選択してください</div>
         <div className="mt-4 flex flex-wrap gap-4 rounded-md border p-2">
-          {/* 選択したやつをここに表示する */}
+          {/* Display selected prefectures */}
           {selectedPrefs.length === 0 ? (
-            <>
-              <button className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-3 py-1 text-sm shadow-md">
-                <p className="text-xs text-gray-300 sm:text-sm">選択なし</p>
-              </button>
-            </>
+            <button className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-2 py-1 text-sm shadow-md">
+              <p className="text-xs text-gray-300 sm:text-sm">選択なし</p>
+            </button>
           ) : (
             selectedPrefs.map((prefCode) => {
               const pref = data.find((p) => p.prefCode === prefCode);
@@ -107,7 +105,7 @@ export default function Home() {
                   onClick={() => togglePrefecture(prefCode)}
                 >
                   <p className="text-xs text-blue-600 sm:text-sm">{pref.prefName}</p>
-                  <IoCloseCircle className="text-blue-600" size={15} />
+                  <IoCloseCircle className="text-blue-600" size={20} />
                 </button>
               );
             })
