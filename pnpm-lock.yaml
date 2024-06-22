@@ -28,6 +28,8 @@ dependencies:
   next: 14.2.4_nnrd3gsncyragczmpvfhocinkq
   react: 18.3.1
   react-dom: 18.3.1_react@18.3.1
+  react-icon: 1.0.0_react@18.3.1
+  react-icons: 5.2.1_react@18.3.1
 
 devDependencies:
   '@secretlint/secretlint-rule-preset-recommend': 8.2.4
@@ -3707,6 +3709,23 @@ packages:
       loose-envify: 1.4.0
       react: 18.3.1
       scheduler: 0.23.2
+    dev: false
+
+  /react-icon/1.0.0_react@18.3.1:
+    resolution: {integrity: sha512-VzSlpBHnLanVw79mOxyq98hWDi6DlxK9qPiZ1bAK6bLurMBCaxO/jjyYUrRx9+JGLc/NbnwOmyE/W5Qglbb2QA==}
+    peerDependencies:
+      babel-runtime: ^5.3.3
+      react: '>=0.12.0'
+    dependencies:
+      react: 18.3.1
+    dev: false
+
+  /react-icons/5.2.1_react@18.3.1:
+    resolution: {integrity: sha512-zdbW5GstTzXaVKvGSyTaBalt7HSfuK5ovrzlpyiWHAFXndXTdd/1hdDHI4xBM1Mn7YriT6aqESucFl9kEXzrdw==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: 18.3.1
     dev: false
 
   /react-is/16.13.1:
