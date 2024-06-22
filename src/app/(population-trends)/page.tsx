@@ -3,11 +3,13 @@ import React, { useState } from "react";
 import { FaCheckCircle, FaCircle } from "react-icons/fa";
 import { IoCloseCircle } from "react-icons/io5";
 
+// 都道府県のインターフェースを定義
 interface Prefecture {
   prefCode: number;
   prefName: string;
 }
 
+// 都道府県データの配列
 const data: Prefecture[] = [
   { prefCode: 1, prefName: "北海道" },
   { prefCode: 2, prefName: "青森県" },
@@ -58,6 +60,7 @@ const data: Prefecture[] = [
   { prefCode: 47, prefName: "沖縄県" },
 ];
 
+// 地域ごとに都道府県のコードを格納
 const regions: { [key: string]: number[] } = {
   "北海道・東北": [1, 2, 3, 4, 5, 6, 7],
   関東: [8, 9, 10, 11, 12, 13, 14],
@@ -70,14 +73,33 @@ const regions: { [key: string]: number[] } = {
 };
 
 export default function Home() {
+  // 選択された都道府県のコードを格納する状態
   const [selectedPrefs, setSelectedPrefs] = useState<number[]>([]);
 
+  // 都道府県の選択・解除を切り替える関数
   const togglePrefecture = (prefCode: number) => {
     setSelectedPrefs((prevSelectedPrefs) =>
       prevSelectedPrefs.includes(prefCode)
         ? prevSelectedPrefs.filter((code) => code !== prefCode)
         : [...prevSelectedPrefs, prefCode],
     );
+  };
+
+  // 地域全体の選択・解除を切り替える関数
+  const toggleRegion = (region: string) => {
+    const allSelected = regions[region]?.every((code) => selectedPrefs.includes(code));
+    if (allSelected) {
+      // すべて選択されている場合は解除
+      setSelectedPrefs((prevSelectedPrefs) =>
+        prevSelectedPrefs.filter((code) => !regions[region]?.includes(code)),
+      );
+    } else {
+      setSelectedPrefs((prevSelectedPrefs) => [
+        ...prevSelectedPrefs,
+        // すべて選択されていない場合は選択
+        ...(regions[region]?.filter((code) => !prevSelectedPrefs.includes(code)) ?? []),
+      ]);
+    }
   };
 
   return (
@@ -89,7 +111,6 @@ export default function Home() {
       <div className="w-full">
         <div className="flex justify-start border-l-4 pl-4 text-sm">都道府県を選択してください</div>
         <div className="mt-4 flex flex-wrap gap-4 rounded-md border p-2">
-          {/* Display selected prefectures */}
           {selectedPrefs.length === 0 ? (
             <button className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-2 py-1 text-sm shadow-md">
               <p className="text-xs text-gray-300 sm:text-sm">選択なし</p>
@@ -97,14 +118,13 @@ export default function Home() {
           ) : (
             selectedPrefs.map((prefCode) => {
               const pref = data.find((p) => p.prefCode === prefCode);
-              if (!pref) return null;
               return (
                 <button
                   className="flex items-center justify-center gap-2 rounded-lg border border-blue-600 px-2 py-1 text-sm shadow-md"
                   key={prefCode}
                   onClick={() => togglePrefecture(prefCode)}
                 >
-                  <p className="text-xs text-blue-600 sm:text-sm">{pref.prefName}</p>
+                  <p className="text-xs text-blue-600 sm:text-sm">{pref?.prefName ?? "不明"}</p>
                   <IoCloseCircle className="text-blue-600" size={20} />
                 </button>
               );
@@ -112,42 +132,63 @@ export default function Home() {
           )}
         </div>
         <div className="flex w-full flex-col p-4 pt-6">
-          {Object.entries(regions).map(([region, prefs]) => (
-            <div className="mb-5 flex flex-col" key={region}>
-              <p className="mb-2 w-fit border-b border-black text-sm">{region}</p>
-              <div className="flex flex-wrap gap-3">
-                {prefs.map((prefCode) => {
-                  const pref = data.find((p) => p.prefCode === prefCode);
-                  if (!pref) return null;
-                  const isSelected = selectedPrefs.includes(prefCode);
-                  return (
-                    <button
-                      className={`flex items-center justify-center gap-3 rounded-lg border px-2 py-1 text-sm shadow-md ${
-                        isSelected ? "border-blue-600" : ""
-                      }`}
-                      key={prefCode}
-                      onClick={() => togglePrefecture(prefCode)}
+          {Object.entries(regions).map(([region, prefs]) => {
+            const allSelected = prefs.every((code) => selectedPrefs.includes(code));
+            return (
+              <div className="mb-5 flex flex-col" key={region}>
+                <p className="mb-2 w-fit border-b border-black text-sm">{region}</p>
+                <div className="flex flex-wrap gap-3">
+                  <button
+                    className="flex items-center justify-center gap-3 rounded-lg border px-2 py-1 text-sm shadow-md"
+                    onClick={() => toggleRegion(region)}
+                  >
+                    {allSelected ? (
+                      <FaCheckCircle className="text-blue-600" size={16} />
+                    ) : (
+                      <FaCircle className="text-gray-200" size={16} />
+                    )}
+                    <p
+                      className={
+                        allSelected
+                          ? "text-xs text-blue-600 sm:text-sm"
+                          : "text-xs text-slate-600 sm:text-sm"
+                      }
                     >
-                      {isSelected ? (
-                        <FaCheckCircle className="text-blue-600" size={16} />
-                      ) : (
-                        <FaCircle className="text-gray-200" size={16} />
-                      )}
-                      <p
-                        className={
-                          isSelected
-                            ? "text-xs text-blue-600 sm:text-sm"
-                            : "text-xs text-slate-600 sm:text-sm"
-                        }
+                      全て
+                    </p>
+                  </button>
+                  {prefs.map((prefCode) => {
+                    const pref = data.find((p) => p.prefCode === prefCode);
+                    const isSelected = selectedPrefs.includes(prefCode);
+                    return (
+                      <button
+                        className={`flex items-center justify-center gap-3 rounded-lg border px-2 py-1 text-sm shadow-md ${
+                          isSelected ? "border-blue-600" : ""
+                        }`}
+                        key={prefCode}
+                        onClick={() => togglePrefecture(prefCode)}
                       >
-                        {pref.prefName}
-                      </p>
-                    </button>
-                  );
-                })}
+                        {isSelected ? (
+                          <FaCheckCircle className="text-blue-600" size={16} />
+                        ) : (
+                          <FaCircle className="text-gray-200" size={16} />
+                        )}
+                        <p
+                          className={
+                            isSelected
+                              ? "text-xs text-blue-600 sm:text-sm"
+                              : "text-xs text-slate-600 sm:text-sm"
+                          }
+                        >
+                          {pref?.prefName ?? "不明"}
+                        </p>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </main>
