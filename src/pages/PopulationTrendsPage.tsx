@@ -1,26 +1,48 @@
 "use client";
 
-import { IoCloseCircle } from "react-icons/io5";
+import { useState, useEffect } from "react";
 
-import Button from "@/components/atoms/Button";
-import Icon from "@/components/atoms/Icon";
+import DataSetSelector from "@/components/molecules/DataSetSelector"; // 追加
 import RegionSelector from "@/components/molecules/RegionSelector";
 import SelectedPrefectures from "@/components/molecules/SelectedPrefectures";
-import RegionList from "@/components/organisms/RegionList";
+import PopulationChart from "@/components/organisms/PopulationChart";
 import Template from "@/components/templates/Template";
 
 import prefectures from "@/data/prefectures";
-import regions from "@/data/regions";
+import { statistics } from "@/data/statistics"; // インポートを追加
 import { usePrefectureSelection } from "@/hooks/usePrefectureSelection";
 
 export default function PopulationTrendsPage() {
   const { selectedPrefs, togglePrefecture, toggleRegion } = usePrefectureSelection();
+  const [selectedDataSet, setSelectedDataSet] = useState<string>("総人口"); // 追加
+  const [chartData, setChartData] = useState<
+    { prefName: string; data: { year: number; value: number }[] }[]
+  >([]);
+
+  useEffect(() => {
+    const fetchData = () => {
+      const seriesData: { prefName: string; data: { year: number; value: number }[] }[] = [];
+      for (const pref of selectedPrefs) {
+        const data = statistics.result.data.find((d) => d.label === selectedDataSet)?.data || [];
+        seriesData.push({
+          prefName: pref.prefName,
+          data: data.map((point: { year: number; value: number }) => ({
+            year: point.year,
+            value: point.value,
+          })),
+        });
+      }
+      setChartData(seriesData);
+    };
+
+    fetchData();
+  }, [selectedPrefs, selectedDataSet]); // selectedDataSetを追加
 
   return (
     <Template
       content={
         <>
-          <section id="prefecture">
+          <section id="prefecture ">
             <div className="flex justify-start border-l-4 pl-4 text-sm">
               都道府県を選択してください
             </div>
@@ -35,45 +57,11 @@ export default function PopulationTrendsPage() {
               toggleRegion={toggleRegion}
             />
           </section>
-          <section id="statistics">
-            <div className="flex justify-start border-l-4 pl-4 text-sm">
-              都道府県を選択してください
-            </div>
-            <div className="mt-4 flex flex-wrap gap-4 rounded-md border p-2">
-              {selectedPrefs.length === 0 ? (
-                <Button
-                  className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-2 py-1 text-sm shadow-md"
-                  onClick={() => {}}
-                >
-                  <p className="text-xs text-gray-300 sm:text-sm">選択なし</p>
-                </Button>
-              ) : (
-                selectedPrefs.map((pref) => (
-                  <Button
-                    className="flex items-center justify-center gap-2 rounded-lg border border-blue-600 px-2 py-1 text-sm shadow-md"
-                    key={pref.prefCode}
-                    onClick={() => togglePrefecture(pref.prefCode)}
-                  >
-                    <p className="text-xs text-blue-600 sm:text-sm">{pref.prefName}</p>
-                    <Icon IconComponent={IoCloseCircle} className="text-blue-600" size={16} />
-                  </Button>
-                ))
-              )}
-            </div>
-            <div className="flex w-full flex-col p-4 pt-6">
-              {Object.entries(regions).map(([region, prefCodes]) => (
-                <RegionList
-                  key={region}
-                  prefectures={prefCodes.map((code) => ({
-                    prefCode: code,
-                    prefName: prefectures.find((p) => p.prefCode === code)?.prefName || "不明",
-                  }))}
-                  region={region}
-                  selectedPrefs={selectedPrefs.map((pref) => pref.prefCode)}
-                  togglePrefecture={togglePrefecture}
-                  toggleRegion={toggleRegion}
-                />
-              ))}
+          <section className="mt-6" id="statistics">
+            <div className="flex justify-start border-l-4 pl-4 text-sm">都道府県別人口推移</div>
+            <div className="w-full p-1 sm:p-4">
+              <PopulationChart populationdata={chartData} />
+              <DataSetSelector onSelect={setSelectedDataSet} selectedDataSet={selectedDataSet} />
             </div>
           </section>
         </>
