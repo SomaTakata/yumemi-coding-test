@@ -12,6 +12,8 @@ specifiers:
   eslint-config-prettier: ^9.1.0
   eslint-plugin-tailwindcss: ^3.17.4
   eslint-plugin-unused-imports: ^4.0.0
+  highcharts: ^11.4.3
+  highcharts-react-official: ^3.2.1
   husky: ^9.0.11
   lint-staged: ^15.2.7
   markuplint: ^4.9.1
@@ -20,11 +22,15 @@ specifiers:
   prettier: 3.3.2
   react: ^18
   react-dom: ^18
+  react-icon: ^1.0.0
+  react-icons: ^5.2.1
   secretlint: ^8.2.4
   tailwindcss: ^3.4.1
   typescript: ^5
 
 dependencies:
+  highcharts: 11.4.3
+  highcharts-react-official: 3.2.1_gjqx5dcaykek4zvlg6dhggk4vu
   next: 14.2.4_nnrd3gsncyragczmpvfhocinkq
   react: 18.3.1
   react-dom: 18.3.1_react@18.3.1
@@ -2497,6 +2503,20 @@ packages:
     dependencies:
       function-bind: 1.1.2
     dev: true
+
+  /highcharts-react-official/3.2.1_gjqx5dcaykek4zvlg6dhggk4vu:
+    resolution: {integrity: sha512-hyQTX7ezCxl7JqumaWiGsroGWalzh24GedQIgO3vJbkGOZ6ySRAltIYjfxhrq4HszJOySZegotEF7v+haQ75UA==}
+    peerDependencies:
+      highcharts: '>=6.0.0'
+      react: '>=16.8.0'
+    dependencies:
+      highcharts: 11.4.3
+      react: 18.3.1
+    dev: false
+
+  /highcharts/11.4.3:
+    resolution: {integrity: sha512-rMmvYvcdwyUVfnRPfiZ0PnW6TgVhoS0FTBI8fc4Fp8l8ocoC9dMecvxS6E6tm7h7LrnSGoEo3b/0IRHuLatD2w==}
+    dev: false
 
   /homedir-polyfill/1.0.3:
     resolution: {integrity: sha512-eSmmWE5bZTK2Nou4g0AI3zZ9rswp7GRKoKXS1BLUkvPviOqs4YTN1djQIqrXy9k5gEtdLPy86JjRwsNM9tnDcA==}
