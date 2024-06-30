@@ -12,6 +12,8 @@ specifiers:
   eslint-config-prettier: ^9.1.0
   eslint-plugin-tailwindcss: ^3.17.4
   eslint-plugin-unused-imports: ^4.0.0
+  highcharts: ^11.4.3
+  highcharts-react-official: ^3.2.1
   husky: ^9.0.11
   lint-staged: ^15.2.7
   markuplint: ^4.9.1
@@ -20,14 +22,20 @@ specifiers:
   prettier: 3.3.2
   react: ^18
   react-dom: ^18
+  react-icon: ^1.0.0
+  react-icons: ^5.2.1
   secretlint: ^8.2.4
   tailwindcss: ^3.4.1
   typescript: ^5
 
 dependencies:
+  highcharts: 11.4.3
+  highcharts-react-official: 3.2.1_gjqx5dcaykek4zvlg6dhggk4vu
   next: 14.2.4_nnrd3gsncyragczmpvfhocinkq
   react: 18.3.1
   react-dom: 18.3.1_react@18.3.1
+  react-icon: 1.0.0_react@18.3.1
+  react-icons: 5.2.1_react@18.3.1
 
 devDependencies:
   '@secretlint/secretlint-rule-preset-recommend': 8.2.4
@@ -2496,6 +2504,20 @@ packages:
       function-bind: 1.1.2
     dev: true
 
+  /highcharts-react-official/3.2.1_gjqx5dcaykek4zvlg6dhggk4vu:
+    resolution: {integrity: sha512-hyQTX7ezCxl7JqumaWiGsroGWalzh24GedQIgO3vJbkGOZ6ySRAltIYjfxhrq4HszJOySZegotEF7v+haQ75UA==}
+    peerDependencies:
+      highcharts: '>=6.0.0'
+      react: '>=16.8.0'
+    dependencies:
+      highcharts: 11.4.3
+      react: 18.3.1
+    dev: false
+
+  /highcharts/11.4.3:
+    resolution: {integrity: sha512-rMmvYvcdwyUVfnRPfiZ0PnW6TgVhoS0FTBI8fc4Fp8l8ocoC9dMecvxS6E6tm7h7LrnSGoEo3b/0IRHuLatD2w==}
+    dev: false
+
   /homedir-polyfill/1.0.3:
     resolution: {integrity: sha512-eSmmWE5bZTK2Nou4g0AI3zZ9rswp7GRKoKXS1BLUkvPviOqs4YTN1djQIqrXy9k5gEtdLPy86JjRwsNM9tnDcA==}
     engines: {node: '>=0.10.0'}
@@ -3707,6 +3729,23 @@ packages:
       loose-envify: 1.4.0
       react: 18.3.1
       scheduler: 0.23.2
+    dev: false
+
+  /react-icon/1.0.0_react@18.3.1:
+    resolution: {integrity: sha512-VzSlpBHnLanVw79mOxyq98hWDi6DlxK9qPiZ1bAK6bLurMBCaxO/jjyYUrRx9+JGLc/NbnwOmyE/W5Qglbb2QA==}
+    peerDependencies:
+      babel-runtime: ^5.3.3
+      react: '>=0.12.0'
+    dependencies:
+      react: 18.3.1
+    dev: false
+
+  /react-icons/5.2.1_react@18.3.1:
+    resolution: {integrity: sha512-zdbW5GstTzXaVKvGSyTaBalt7HSfuK5ovrzlpyiWHAFXndXTdd/1hdDHI4xBM1Mn7YriT6aqESucFl9kEXzrdw==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: 18.3.1
     dev: false
 
   /react-is/16.13.1:
