@@ -37,9 +37,9 @@ const Template: React.FC<TemplateProps> = ({ header, content }) => {
   };
 
   return (
-    <main className="relative flex min-h-screen w-full flex-col items-center px-6 pt-12 sm:px-12">
+    <main className="relative flex min-h-screen w-full flex-col items-center px-4 py-12  sm:px-12">
       <Button
-        className="fixed bottom-4 right-4 bg-slate-600 text-sm text-white"
+        className="fixed bottom-4 right-4 z-50 bg-slate-600 text-sm text-white"
         onClick={handleButtonClick}
       >
         {atTop ? "統計を見る" : "都道府県を選択する"}
