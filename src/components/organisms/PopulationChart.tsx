@@ -37,7 +37,7 @@ const PopulationChart: React.FC<Props> = ({ populationdata }) => {
 
   const options: Highcharts.Options = {
     title: {
-      text: "総人口推移",
+      text: "",
     },
     xAxis: {
       title: {
@@ -54,7 +54,7 @@ const PopulationChart: React.FC<Props> = ({ populationdata }) => {
   };
 
   return (
-    <div className="mt-3 sm:p-3">
+    <div className="mt-6 sm:p-3">
       <HighchartsReact highcharts={Highcharts} options={options} />
     </div>
   );
