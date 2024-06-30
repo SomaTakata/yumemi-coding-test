@@ -3,9 +3,8 @@
 import { useState, useEffect } from "react";
 
 import DataSetSelector from "@/components/molecules/DataSetSelector";
-import RegionSelector from "@/components/molecules/RegionSelector";
-import ScrollButton from "@/components/molecules/ScrollButton"; // 追加
-import SelectedPrefectures from "@/components/molecules/SelectedPrefectures";
+import PrefectureSelector from "@/components/molecules/PrefectureSelector"; // 修正
+import ScrollButton from "@/components/molecules/ScrollButton";
 import PopulationChart from "@/components/organisms/PopulationChart";
 import Template from "@/components/templates/Template";
 
@@ -69,16 +68,9 @@ export default function PopulationTrendsPage() {
       content={
         <>
           <section id="prefecture">
-            <div className="flex justify-start border-l-4 pl-4 text-sm">
-              都道府県を選択してください
-            </div>
-            <SelectedPrefectures
+            <PrefectureSelector
+              prefectures={prefectures} // prefectures を渡す
               selectedPrefs={selectedPrefs}
-              togglePrefecture={togglePrefecture}
-            />
-            <RegionSelector
-              prefectures={prefectures}
-              selectedPrefs={selectedPrefs.map((pref) => pref.prefCode)}
               togglePrefecture={togglePrefecture}
               toggleRegion={toggleRegion}
             />

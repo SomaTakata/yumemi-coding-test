@@ -1,22 +1,22 @@
 import React from "react";
 
+import RegionList from "@/components/organisms/RegionList";
+
 import regions from "@/data/regions";
 import { Prefecture } from "@/types";
 
-import RegionList from "../organisms/RegionList";
-
 interface RegionSelectorProps {
-  prefectures: Prefecture[];
   selectedPrefs: number[];
   togglePrefecture: (prefCode: number) => void;
   toggleRegion: (region: string) => void;
+  prefectures: Prefecture[]; // プロパティに prefectures を追加
 }
 
 const RegionSelector: React.FC<RegionSelectorProps> = ({
-  prefectures,
   selectedPrefs,
   togglePrefecture,
   toggleRegion,
+  prefectures, // prefectures を受け取る
 }) => {
   return (
     <div className="flex w-full flex-col p-4 pt-6">
