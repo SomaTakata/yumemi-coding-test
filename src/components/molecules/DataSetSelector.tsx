@@ -11,13 +11,13 @@ const DataSetSelector: React.FC<DataSetSelectorProps> = ({ selectedDataSet, onSe
   const dataSets = ["総人口", "年少人口", "生産年齢人口", "老年人口"];
 
   return (
-    <div className="mb-4 flex gap-1 sm:gap-2">
+    <div className="mb-4 mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
       {dataSets.map((dataSet) => (
         <Button
           className={
             selectedDataSet === dataSet
-              ? "w-full border-blue-600 text-[10px] text-blue-600 sm:text-sm"
-              : "w-full text-[10px] text-slate-600 sm:text-sm"
+              ? "border-blue-600 text-xs text-blue-600 sm:text-sm"
+              : "text-xs text-slate-600 sm:text-sm"
           }
           key={dataSet}
           onClick={() => onSelect(dataSet)}
