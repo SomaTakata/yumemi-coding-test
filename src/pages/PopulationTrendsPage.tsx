@@ -3,22 +3,21 @@
 import { useState, useEffect } from "react";
 
 import DataSetSelector from "@/components/molecules/DataSetSelector";
-import PrefectureSelector from "@/components/molecules/PrefectureSelector"; // 修正
+import PrefectureSelector from "@/components/molecules/PrefectureSelector";
 import ScrollButton from "@/components/molecules/ScrollButton";
 import PopulationChart from "@/components/organisms/PopulationChart";
 import Template from "@/components/templates/Template";
 
 import prefectures from "@/data/prefectures";
-import { statistics } from "@/data/statistics";
+import usePopulationData from "@/hooks/usePopulationData";
 import { usePrefectureSelection } from "@/hooks/usePrefectureSelection";
 
 export default function PopulationTrendsPage() {
   const { selectedPrefs, togglePrefecture, toggleRegion } = usePrefectureSelection();
   const [selectedDataSet, setSelectedDataSet] = useState<string>("総人口");
-  const [chartData, setChartData] = useState<
-    { prefName: string; data: { year: number; value: number }[] }[]
-  >([]);
   const [atTop, setAtTop] = useState(true);
+
+  const chartData = usePopulationData(selectedPrefs, selectedDataSet);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,25 +32,6 @@ export default function PopulationTrendsPage() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  useEffect(() => {
-    const fetchData = () => {
-      const seriesData: { prefName: string; data: { year: number; value: number }[] }[] = [];
-      for (const pref of selectedPrefs) {
-        const data = statistics.result.data.find((d) => d.label === selectedDataSet)?.data || [];
-        seriesData.push({
-          prefName: pref.prefName,
-          data: data.map((point: { year: number; value: number }) => ({
-            year: point.year,
-            value: point.value,
-          })),
-        });
-      }
-      setChartData(seriesData);
-    };
-
-    fetchData();
-  }, [selectedPrefs, selectedDataSet]);
 
   const handleButtonClick = () => {
     const targetId = atTop ? "statistics" : "prefecture";
@@ -69,7 +49,7 @@ export default function PopulationTrendsPage() {
         <>
           <section id="prefecture">
             <PrefectureSelector
-              prefectures={prefectures} // prefectures を渡す
+              prefectures={prefectures}
               selectedPrefs={selectedPrefs}
               togglePrefecture={togglePrefecture}
               toggleRegion={toggleRegion}
