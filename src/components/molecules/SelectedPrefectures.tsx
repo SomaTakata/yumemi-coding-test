@@ -16,7 +16,7 @@ const SelectedPrefectures: React.FC<SelectedPrefecturesProps> = ({
   togglePrefecture,
 }) => {
   return (
-    <div className="mt-4 flex flex-wrap gap-3 rounded-md border p-2">
+    <div className="mb-8 flex flex-wrap gap-3 rounded-md border p-2">
       {selectedPrefs.length === 0 ? (
         <Button
           className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-2 py-1 text-sm shadow-md"
