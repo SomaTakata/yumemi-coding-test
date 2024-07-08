@@ -8,12 +8,13 @@ import ScrollButton from "@/components/molecules/ScrollButton";
 import PopulationChart from "@/components/organisms/PopulationChart";
 import Template from "@/components/templates/Template";
 
-import prefectures from "@/data/prefectures";
+import useFetchPrefectures from "@/hooks/useFetchPrefectures";
 import usePopulationData from "@/hooks/usePopulationData";
 import { usePrefectureSelection } from "@/hooks/usePrefectureSelection";
 
 export default function PopulationTrendsPage() {
-  const { selectedPrefs, togglePrefecture, toggleRegion } = usePrefectureSelection();
+  const { prefectures, loading, error } = useFetchPrefectures();
+  const { selectedPrefs, togglePrefecture, toggleRegion } = usePrefectureSelection(prefectures);
   const [selectedDataSet, setSelectedDataSet] = useState<string>("総人口");
   const [atTop, setAtTop] = useState(true);
 
@@ -43,12 +44,26 @@ export default function PopulationTrendsPage() {
     }
   };
 
+  if (error) {
+    console.log(error);
+  }
+
   return (
     <Template
       content={
         <>
+          {error && (
+            <div
+              className="relative rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
+              role="alert"
+            >
+              <strong className="font-bold">Error:</strong>
+              <span className="block sm:inline"> {error}</span>
+            </div>
+          )}
           <section id="prefecture">
             <PrefectureSelector
+              loading={loading} // ローディング状態を渡す
               prefectures={prefectures}
               selectedPrefs={selectedPrefs}
               togglePrefecture={togglePrefecture}

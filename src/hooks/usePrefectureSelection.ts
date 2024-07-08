@@ -1,11 +1,10 @@
 import { useState } from "react";
 
-import prefectures from "@/data/prefectures";
 import regions from "@/data/regions";
 import { Prefecture } from "@/types/prefecture";
 import { Regions } from "@/types/region";
 
-export const usePrefectureSelection = () => {
+export const usePrefectureSelection = (prefectures: Prefecture[]) => {
   const [selectedPrefs, setSelectedPrefs] = useState<Prefecture[]>([]);
 
   const togglePrefecture = (prefCode: number) => {

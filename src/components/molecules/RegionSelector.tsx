@@ -5,19 +5,27 @@ import RegionList from "@/components/organisms/RegionList";
 import regions from "@/data/regions";
 import { Prefecture } from "@/types";
 
+import LoadingPlaceholder from "./LoadingPlaceholder";
+
 interface RegionSelectorProps {
+  prefectures: Prefecture[];
   selectedPrefs: number[];
   togglePrefecture: (prefCode: number) => void;
   toggleRegion: (region: string) => void;
-  prefectures: Prefecture[]; // プロパティに prefectures を追加
+  loading: boolean;
 }
 
 const RegionSelector: React.FC<RegionSelectorProps> = ({
+  prefectures,
   selectedPrefs,
   togglePrefecture,
   toggleRegion,
-  prefectures, // prefectures を受け取る
+  loading,
 }) => {
+  if (loading) {
+    return <LoadingPlaceholder />;
+  }
+
   return (
     <div className="flex w-full flex-col p-4 pt-6">
       {Object.entries(regions).map(([region, prefCodes]) => (
