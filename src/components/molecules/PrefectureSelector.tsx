@@ -21,13 +21,13 @@ const PrefectureSelector: React.FC<PrefectureSelectorProps> = ({
   return (
     <>
       <div className="flex justify-start border-l-4 pl-4 text-sm">都道府県を選択してください</div>
-      <SelectedPrefectures selectedPrefs={selectedPrefs} togglePrefecture={togglePrefecture} />
       <RegionSelector
         prefectures={prefectures} // prefectures を渡す
         selectedPrefs={selectedPrefs.map((pref) => pref.prefCode)}
         togglePrefecture={togglePrefecture}
         toggleRegion={toggleRegion}
       />
+      <SelectedPrefectures selectedPrefs={selectedPrefs} togglePrefecture={togglePrefecture} />
     </>
   );
 };
