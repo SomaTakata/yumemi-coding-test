@@ -54,7 +54,7 @@ const PopulationChart: React.FC<Props> = ({ populationdata }) => {
   };
 
   return (
-    <div className="mt-6 sm:p-3">
+    <div className="-ml-4 mt-6 sm:-ml-8 sm:p-3">
       <HighchartsReact highcharts={Highcharts} options={options} />
     </div>
   );
