@@ -63,7 +63,7 @@ export default function PopulationTrendsPage() {
           )}
           <section id="prefecture">
             <PrefectureSelector
-              loading={loading} // ローディング状態を渡す
+              loading={loading}
               prefectures={prefectures}
               selectedPrefs={selectedPrefs}
               togglePrefecture={togglePrefecture}

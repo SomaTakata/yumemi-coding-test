@@ -9,23 +9,23 @@ interface PrefectureSelectorProps {
   selectedPrefs: Prefecture[];
   togglePrefecture: (prefCode: number) => void;
   toggleRegion: (region: string) => void;
-  prefectures: Prefecture[]; // プロパティに prefectures を追加
-  loading: boolean; // ローディング状態を追加
+  prefectures: Prefecture[];
+  loading: boolean;
 }
 
 const PrefectureSelector: React.FC<PrefectureSelectorProps> = ({
   selectedPrefs,
   togglePrefecture,
   toggleRegion,
-  prefectures, // prefectures を受け取る
-  loading, // ローディング状態を受け取る
+  prefectures,
+  loading,
 }) => {
   return (
     <>
       <div className="flex justify-start border-l-4 pl-4 text-sm">都道府県を選択してください</div>
       <RegionSelector
-        loading={loading} // ローディング状態を渡す
-        prefectures={prefectures} // prefectures を渡す
+        loading={loading}
+        prefectures={prefectures}
         selectedPrefs={selectedPrefs.map((pref) => pref.prefCode)}
         togglePrefecture={togglePrefecture}
         toggleRegion={toggleRegion}
