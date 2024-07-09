@@ -1,4 +1,3 @@
-import React from "react";
 import { FaCheckCircle, FaCircle } from "react-icons/fa";
 
 import Button from "../atoms/Button";

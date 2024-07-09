@@ -1,5 +1,3 @@
-import React from "react";
-
 import RegionList from "@/components/organisms/RegionList";
 
 import regions from "@/data/regions";

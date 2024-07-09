@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Prefecture } from "@/types";
 
 import PrefectureButton from "../molecules/PrefectureButton";

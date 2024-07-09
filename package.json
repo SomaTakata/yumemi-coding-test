@@ -11,7 +11,8 @@
     "prettier": "prettier --write .",
     "markuplint": "markuplint \"./**/*.tsx\"",
     "secretlint": "secretlint --maskSecrets --secretlintignore .gitignore '**/*'",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "jest"
   },
   "dependencies": {
     "highcharts": "^11.4.3",
@@ -24,23 +25,33 @@
   },
   "devDependencies": {
     "@secretlint/secretlint-rule-preset-recommend": "^8.2.4",
+    "@testing-library/dom": "^10.3.1",
+    "@testing-library/jest-dom": "^6.4.6",
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/jest": "^29.5.12",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "@typescript-eslint/parser": "^7.13.1",
+    "babel-runtime": "^5.3.3",
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-tailwindcss": "^3.17.4",
     "eslint-plugin-unused-imports": "^4.0.0",
     "husky": "^9.0.11",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.7",
     "markuplint": "^4.9.1",
     "postcss": "^8",
     "prettier": "3.3.2",
     "secretlint": "^8.2.4",
     "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
