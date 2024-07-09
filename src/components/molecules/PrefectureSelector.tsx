@@ -1,5 +1,3 @@
-import React from "react";
-
 import RegionSelector from "@/components/molecules/RegionSelector";
 import SelectedPrefectures from "@/components/molecules/SelectedPrefectures";
 
