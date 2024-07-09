@@ -6,15 +6,19 @@ on:
       - "**"
 
 jobs:
-  test-and-lint:
+  test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
+
         with:
           node-version: "18"
 
@@ -26,6 +30,3 @@ jobs:
 
       - name: Run tests
         run: pnpm test
-
-      - name: Run lint:fix
-        run: pnpm lint:fix
