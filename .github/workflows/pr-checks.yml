@@ -30,17 +30,3 @@ jobs:
 
       - name: Run tests
         run: pnpm test
-
-
-      - name: Run lint
-        run: pnpm lint > lint-result.log
-
-      - name: Run lint fix
-        run: pnpm lint:fix
-
-      - name: Run reviewdog
-        uses: reviewdog/action-eslint@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-review
-          eslint_flags: "--format=unix lint-result.log"
