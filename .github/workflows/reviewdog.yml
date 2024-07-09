@@ -1,36 +1,14 @@
-name: Reviewdog
-
-on:
-  pull_request:
-    branches:
-      - "**"
-
+name: reviewdog
+on: [pull_request]
 jobs:
-  lint:
+  eslint:
+    name: runner / eslint
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "18"
-
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Run lint
-        run: pnpm lint | tee lint-result.log
-
-      - name: Run reviewdog
+      - uses: actions/checkout@v1
+      - name: eslint
         uses: reviewdog/action-eslint@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-review
-          level: error
-          path: lint-result.log
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review # Change reporter.
+          eslint_flags: "src/**/*.{ts,tsx}"
