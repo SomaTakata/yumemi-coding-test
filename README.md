@@ -69,7 +69,7 @@ pnpm install
 ルートディレクトリに`.env.local`ファイルを作成し、APIキーを追加:
 
 ```bash
-NEXT_PUBLIC_RESAS_API_KEY=your_api_key
+RESAS_API_KEY=your_api_key
 ```
 
 ## 🚀開発
