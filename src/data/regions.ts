@@ -1,3 +1,7 @@
+/**
+ * このデータはRESAS（地域経済分析システム）を元に加工して作成されました。
+ * 出典：RESAS（地域経済分析システム）
+ */
 interface Regions {
   [key: string]: number[];
 }
