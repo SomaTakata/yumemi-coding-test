@@ -25,7 +25,7 @@ const RegionList: React.FC<RegionListProps> = ({
   return (
     <div className="mb-5 flex flex-col">
       <p className="mb-2 w-fit border-b border-black text-sm">{region}</p>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-2 sm:gap-3">
         <RegionToggleButton allSelected={allSelected} region={region} toggleRegion={toggleRegion} />
         {prefectures.map((pref) => (
           <PrefectureButton

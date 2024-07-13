@@ -16,10 +16,10 @@ const SelectedPrefectures: React.FC<SelectedPrefecturesProps> = ({
   togglePrefecture,
 }) => {
   return (
-    <div className="mb-8 flex flex-wrap gap-3 rounded-md border p-2">
+    <div className="mb-8 flex flex-wrap gap-2 rounded-md  border p-2 sm:gap-3">
       {selectedPrefs.length === 0 ? (
         <Button
-          className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-2 py-1 text-sm shadow-md"
+          className="flex items-center justify-center gap-1 rounded-lg border border-gray-300 px-2 py-1 text-sm shadow-md sm:gap-2"
           onClick={() => {}}
         >
           <p className="text-xs text-gray-300 sm:text-sm">選択なし</p>
@@ -27,7 +27,7 @@ const SelectedPrefectures: React.FC<SelectedPrefecturesProps> = ({
       ) : (
         selectedPrefs.map((pref) => (
           <Button
-            className="flex items-center justify-center gap-2 rounded-lg border border-blue-600 px-2 py-1 text-sm shadow-md"
+            className="flex items-center justify-center gap-1 rounded-lg border border-blue-600 px-2 py-1 text-sm shadow-md sm:gap-2"
             key={pref.prefCode}
             onClick={() => togglePrefecture(pref.prefCode)}
           >
