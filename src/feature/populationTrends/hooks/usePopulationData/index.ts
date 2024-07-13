@@ -26,8 +26,6 @@ const usePopulationData = (selectedPrefs: Prefecture[], selectedDataSet: string)
   const [chartData, setChartData] = useState<
     { prefName: string; data: { year: number; value: number }[] }[]
   >([]);
-  // 前回選択された都道府県の参照
-  const previousSelectedPrefs = useRef<Prefecture[]>([]);
   // APIから取得したデータのキャッシュ
   const cachedData = useRef<Map<number, ApiResponse>>(new Map());
 
@@ -36,17 +34,11 @@ const usePopulationData = (selectedPrefs: Prefecture[], selectedDataSet: string)
       // 選択された都道府県がない場合、チャートデータをクリア
       if (selectedPrefs.length === 0) {
         setChartData([]);
-        previousSelectedPrefs.current = [];
         return;
       }
 
-      // 新しく選択された都道府県を取得
-      const newPrefs = selectedPrefs.filter(
-        (pref) => !previousSelectedPrefs.current.some((p) => p.prefCode === pref.prefCode),
-      );
-
-      // フェッチしたデータを格納する配列
-      const seriesData: { prefName: string; data: { year: number; value: number }[] }[] = [];
+      // キャッシュされていない新しい都道府県を取得
+      const newPrefs = selectedPrefs.filter((pref) => !cachedData.current.has(pref.prefCode));
 
       // 新しい都道府県がある場合、APIからデータをフェッチ
       if (newPrefs.length > 0) {
@@ -59,44 +51,34 @@ const usePopulationData = (selectedPrefs: Prefecture[], selectedDataSet: string)
 
         const results = (await response.json()) as ApiResponse[];
 
-        // フェッチしたデータをキャッシュに保存し、seriesDataに追加
+        // フェッチしたデータをキャッシュに保存
         results.forEach((result, index) => {
           const pref = newPrefs[index];
           if (pref) {
             cachedData.current.set(pref.prefCode, result);
-
-            const data = result.result.data.find((d) => d.label === selectedDataSet)?.data || [];
-
-            seriesData.push({
-              prefName: pref.prefName,
-              data: data.map((point) => ({
-                year: point.year,
-                value: point.value,
-              })),
-            });
           }
         });
       }
 
-      // 選択された都道府県のデータをキャッシュから取得してseriesDataに追加
-      selectedPrefs.forEach((pref) => {
-        if (!newPrefs.some((p) => p.prefCode === pref.prefCode)) {
-          const result = cachedData.current.get(pref.prefCode);
-          const data = result?.result.data.find((d) => d.label === selectedDataSet)?.data || [];
-
-          seriesData.push({
+      // キャッシュされたデータからchartDataに追加
+      const updatedChartData = selectedPrefs.map((pref) => {
+        const cachedResult = cachedData.current.get(pref.prefCode);
+        if (cachedResult) {
+          const data =
+            cachedResult.result.data.find((d) => d.label === selectedDataSet)?.data || [];
+          return {
             prefName: pref.prefName,
             data: data.map((point) => ({
               year: point.year,
               value: point.value,
             })),
-          });
+          };
         }
+        return { prefName: pref.prefName, data: [] };
       });
 
-      // チャートデータを更新し、前回選択された都道府県を更新
-      setChartData(seriesData);
-      previousSelectedPrefs.current = selectedPrefs;
+      // チャートデータを更新
+      setChartData(updatedChartData);
     };
 
     fetchData().catch((error) => console.error(error));
