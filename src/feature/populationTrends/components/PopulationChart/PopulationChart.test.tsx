@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-
 import PopulationChart from ".";
 
 jest.mock("highcharts-react-official", () => (props: any) => (
@@ -26,7 +25,7 @@ describe("PopulationChartコンポーネントのテスト", () => {
   ];
 
   test("人口データが正しく表示されること", () => {
-    render(<PopulationChart populationdata={mockPopulationData} />);
+    render(<PopulationChart populationData={mockPopulationData} />);
 
     const highchartsElement = screen.getByTestId("highcharts-react-mock");
     expect(highchartsElement).toBeInTheDocument();
@@ -50,7 +49,7 @@ describe("PopulationChartコンポーネントのテスト", () => {
   });
 
   test("人口データがない場合、デフォルトのシリーズが表示されること", () => {
-    render(<PopulationChart populationdata={[]} />);
+    render(<PopulationChart populationData={[]} />);
 
     const highchartsElement = screen.getByTestId("highcharts-react-mock");
     expect(highchartsElement).toBeInTheDocument();

@@ -4,28 +4,31 @@ import type { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const prefCode = searchParams.get("prefCode");
+  const prefCodes = searchParams.get("prefCodes")?.split(",") || [];
 
-  if (!prefCode) {
-    return NextResponse.json({ error: "prefCode is required" }, { status: 400 });
+  if (prefCodes.length === 0) {
+    return NextResponse.json({ error: "prefCodes are required" }, { status: 400 });
   }
 
   try {
-    const response = await fetch(
-      `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?prefCode=${prefCode}`,
-      {
-        headers: {
-          "X-API-KEY": process.env.NEXT_PUBLIC_RESAS_API_KEY as string,
+    const fetchPopulationData = (prefCode: string) =>
+      fetch(
+        `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?prefCode=${prefCode}`,
+        {
+          headers: {
+            "X-API-KEY": process.env.RESAS_API_KEY as string,
+          },
         },
-      },
-    );
+      ).then((res) => {
+        if (!res.ok) {
+          throw new Error(`Failed to fetch population data for prefCode ${prefCode}`);
+        }
+        return res.json();
+      });
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch population for prefCode ${prefCode}`);
-    }
+    const responses = await Promise.all(prefCodes.map(fetchPopulationData));
 
-    const data = (await response.json()) as Record<string, unknown>;
-    return NextResponse.json(data);
+    return NextResponse.json(responses);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
     return NextResponse.json({ error: errorMessage }, { status: 500 });
