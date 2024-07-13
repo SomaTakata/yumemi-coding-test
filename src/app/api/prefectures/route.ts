@@ -14,7 +14,7 @@ export async function GET() {
   try {
     const response = await fetch(`https://opendata.resas-portal.go.jp/api/v1/prefectures`, {
       headers: {
-        "X-API-KEY": process.env.NEXT_PUBLIC_RESAS_API_KEY as string,
+        "X-API-KEY": process.env.RESAS_API_KEY as string,
       },
     });
 
