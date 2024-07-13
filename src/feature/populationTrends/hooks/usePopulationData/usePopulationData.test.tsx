@@ -34,7 +34,7 @@ const mockFetchResponse = (data: any) =>
 
 describe("usePopulationData フック", () => {
   beforeEach(() => {
-    global.fetch = jest.fn(() => mockFetchResponse(populationData));
+    global.fetch = jest.fn(() => mockFetchResponse([populationData]));
   });
 
   afterEach(() => {
