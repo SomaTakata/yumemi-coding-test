@@ -10,21 +10,6 @@ import useFetchPrefectures from "@/feature/populationTrends/hooks/useFetchPrefec
 import usePopulationData from "@/feature/populationTrends/hooks/usePopulationData";
 import usePrefectureSelection from "@/feature/populationTrends/hooks/usePrefectureSelection";
 
-interface TemplateProps {
-  header: React.ReactNode;
-  content: React.ReactNode;
-}
-
-const Template: React.FC<TemplateProps> = ({ header, content }) => {
-  return (
-    <main className="relative flex min-h-screen w-full flex-col items-center px-4 py-12  sm:px-12">
-      {header}
-      <div className="h-10" />
-      <div className="w-full">{content}</div>
-    </main>
-  );
-};
-
 export default function PopulationTrendsPage() {
   const { prefectures, loading, error } = useFetchPrefectures();
   const { selectedPrefs, togglePrefecture, toggleRegion } = usePrefectureSelection(prefectures);
@@ -58,47 +43,40 @@ export default function PopulationTrendsPage() {
     }
   };
 
-  if (error) {
-    console.log(error);
-  }
-
   return (
-    <Template
-      content={
-        <>
-          {error && (
-            <div
-              className="relative rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
-              role="alert"
-            >
-              <strong className="font-bold">Error:</strong>
-              <span className="block sm:inline"> {error}</span>
-            </div>
-          )}
-          <section id="prefecture">
-            <PrefectureSelector
-              loading={loading}
-              prefectures={prefectures}
-              selectedPrefs={selectedPrefs}
-              togglePrefecture={togglePrefecture}
-              toggleRegion={toggleRegion}
-            />
-          </section>
-          <section className="mt-6" id="statistics">
-            <div className="flex justify-start border-l-4 pl-4 text-sm">都道府県別人口推移</div>
-            <div className="w-full p-1 sm:p-4">
-              <DataSetSelector onSelect={setSelectedDataSet} selectedDataSet={selectedDataSet} />
-              <PopulationChart populationdata={chartData} />
-            </div>
-          </section>
-          <ScrollButton atTop={atTop} onClick={handleButtonClick} />
-        </>
-      }
-      header={
-        <div className="absolute top-0 flex h-12 w-full items-center justify-center border-b text-sm sm:text-base">
-          都道府県別人口推移
-        </div>
-      }
-    />
+    <main className="relative flex min-h-screen w-full flex-col items-center px-4 py-12 sm:px-12">
+      <div className="absolute top-0 flex h-12 w-full items-center justify-center border-b text-sm sm:text-base">
+        都道府県別人口推移
+      </div>
+      <div className="h-10" />
+      <div className="w-full">
+        {error && (
+          <div
+            className="relative rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
+            role="alert"
+          >
+            <strong className="font-bold">Error:</strong>
+            <span className="block sm:inline"> {error}</span>
+          </div>
+        )}
+        <section id="prefecture">
+          <PrefectureSelector
+            loading={loading}
+            prefectures={prefectures}
+            selectedPrefs={selectedPrefs}
+            togglePrefecture={togglePrefecture}
+            toggleRegion={toggleRegion}
+          />
+        </section>
+        <section className="mt-6" id="statistics">
+          <div className="flex justify-start border-l-4 pl-4 text-sm">都道府県別人口推移</div>
+          <div className="w-full p-1 sm:p-4">
+            <DataSetSelector onSelect={setSelectedDataSet} selectedDataSet={selectedDataSet} />
+            <PopulationChart populationData={chartData} />
+          </div>
+        </section>
+        <ScrollButton atTop={atTop} onClick={handleButtonClick} />
+      </div>
+    </main>
   );
 }

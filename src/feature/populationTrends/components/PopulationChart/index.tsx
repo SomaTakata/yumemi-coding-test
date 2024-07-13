@@ -8,31 +8,33 @@ type PopulationData = {
 };
 
 type Props = {
-  populationdata: {
+  populationData: {
     prefName: string;
     data: PopulationData[];
   }[];
 };
 
-const PopulationChart: React.FC<Props> = ({ populationdata }) => {
+const PopulationChart: React.FC<Props> = ({ populationData }) => {
   const series: Highcharts.SeriesOptionsType[] = [];
   const categories: string[] = [];
 
-  for (const p of populationdata) {
-    const data: number[] = [];
+  if (Array.isArray(populationData)) {
+    for (const p of populationData) {
+      const data: number[] = [];
 
-    for (const pd of p.data) {
-      data.push(pd.value);
-      if (!categories.includes(String(pd.year))) {
-        categories.push(String(pd.year));
+      for (const pd of p.data) {
+        data.push(pd.value);
+        if (!categories.includes(String(pd.year))) {
+          categories.push(String(pd.year));
+        }
       }
-    }
 
-    series.push({
-      type: "line",
-      name: p.prefName,
-      data: data,
-    });
+      series.push({
+        type: "line",
+        name: p.prefName,
+        data: data,
+      });
+    }
   }
 
   const options: Highcharts.Options = {
