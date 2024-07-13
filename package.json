@@ -47,6 +47,7 @@
     "lint-staged": "^15.2.7",
     "markuplint": "^4.9.1",
     "prettier": "3.3.2",
+    "postcss": "^8",
     "secretlint": "^8.2.4",
     "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
