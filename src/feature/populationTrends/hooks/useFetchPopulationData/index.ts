@@ -80,7 +80,7 @@ const useFetchPopulationData = (selectedPrefs: number[], selectedDataSet: string
     fetchData().catch((error) => console.error(error));
 
     // 必要な依存関係のみを依存配列に指定する
-  }, [selectedPrefs, selectedDataSet]);
+  }, [selectedPrefs, selectedDataSet, populationData.length]);
 
   // 最終的な人口データを返す
   return populationData;
