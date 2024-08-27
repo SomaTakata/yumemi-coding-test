@@ -45,9 +45,9 @@ export default function PopulationTrendsPage() {
 
   return (
     <main className="relative flex min-h-screen w-full flex-col items-center px-4 py-12 sm:px-12">
-      <div className="absolute top-0 flex h-12 w-full items-center justify-center border-b text-sm sm:text-base">
+      <h1 className="absolute top-0 flex h-12 w-full items-center justify-center border-b text-sm sm:text-base">
         都道府県別人口推移
-      </div>
+      </h1>
       <div className="h-10" />
       <div className="w-full">
         {error && (
